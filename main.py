@@ -1,6 +1,6 @@
 # Import necessary modules
 import network
-import asyncio
+import uasyncio as asyncio
 #from config import wifi_ssid, wifi_password
 import time
 import json
@@ -47,20 +47,11 @@ def webpage(state):
     return html
 
 # Get credentials for Wi-Fi Interface
-def init_wifi_from_file(file_path="wifi_credentials.json"):
-    try:
-        with open(file_path, 'r') as file:
-            credentials = json.load(file)
-            print("JSON file loaded")
-    except OSError:
-        print(f"Error: unable to read {file_path}.")
-        return False
-    for cred in credentials:
-        ssid = cred.get('ssid')
-        password = cred.get('password')
-        if ssid and password:
-            if init_wifi(ssid,password):
-                return True        
+def init_wifi_from_file():
+    ssid = "whiff-2.4"
+    password = "lions8wiley"
+    if init_wifi(ssid,password):
+        return True        
     print ("Unable to connect!")
     return False
 
@@ -136,9 +127,10 @@ async def main():
     server = asyncio.start_server(handle_client, "0.0.0.0", 80)
     asyncio.create_task(server)
     asyncio.create_task(blink_led())
+    print('DONE!')
     
     while True:
-        print('Loop')
+        #print('Loop')
         # Add other tasks that you might need to do in the loop
         await asyncio.sleep(5)
         onboard_led.toggle()
