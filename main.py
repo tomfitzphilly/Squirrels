@@ -100,13 +100,14 @@ async def handle_client(reader, writer):
     request = str(request_line, 'utf-8').split()[1]
     print('Request:', request)
     
-    # Process the request and update variables.  This turns the motor on/then off after 60 seconds
+    # Process the request and update variables.  This turns the motor on/then off after "N" seconds
+    N=1
     if request == '/squirton?':
         print('Squirting')
         squirt_control.value(1)
         state = 'ON'
         response = webpage(state)
-        time.sleep(1)
+        time.sleep(N)
         squirt_control.value(0)
         print("Squirting Stopped")
         state = 'OFF'
@@ -114,9 +115,10 @@ async def handle_client(reader, writer):
     # Generate HTML response
     response = webpage(state)  
 
-    # Send the HTTP response and close the connection
+    # Send the HTTP stream response and close the connection
     writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
     writer.write(response)
+    # Don't overwrite the buffer
     await writer.drain()
     await writer.wait_closed()
     print('Client Disconnected')
