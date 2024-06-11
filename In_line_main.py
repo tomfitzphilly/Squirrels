@@ -11,8 +11,8 @@ from machine import Pin
 sq = Pin(9, Pin.OUT)
 
 # Wi-Fi credentials using mine from work.
-ssid = 'whiff-2.4'
-password = 'lions8wiley'
+ssid = '********'
+password = '*******'
 
 # HTML template for the webpage - this is pretty basic and is formatted using f-strings
 def webpage(state):  #State is used to 
