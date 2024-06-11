@@ -48,8 +48,8 @@ def webpage(state):
 
 # Get credentials for Wi-Fi Interface
 def init_wifi_from_file():
-    ssid = "whiff-2.4"
-    password = "lions8wiley"
+    ssid = "********"
+    password = "*******"
     if init_wifi(ssid,password):
         return True        
     print ("Unable to connect!")
